@@ -418,7 +418,7 @@ public class SpreadsheetView: UIView {
         cellNibs[identifier] = nib
     }
 
-    public func reloadData() {
+    public func reloadData(_ overrideUpdateFrames:Bool = false) {
         layoutProperties = resetLayoutProperties()
         circularScrollScalingFactor = determineCircularScrollScalingFactor()
         centerOffset = calculateCenterOffset()
@@ -438,7 +438,10 @@ public class SpreadsheetView: UIView {
         resetContentSize(of: rowHeaderView)
         resetContentSize(of: tableView)
 
-        resetScrollViewFrame()
+        if (!overrideUpdateFrames) {
+            resetScrollViewFrame()
+        }
+        
         resetScrollViewArrangement()
 
         if circularScrollingOptions.direction.contains(.horizontally) && tableView.contentOffset.x == 0 {
